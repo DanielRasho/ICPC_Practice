@@ -1,104 +1,83 @@
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 
 public class DejaVu {
 
   static class TestCase {
-    public List<Long> Xs;
-    public List<Long> As;
-  
-    public TestCase(List<Long> xs, List<Long> as)  {
+    private List<Integer> Xs;
+    private List<Integer> As;
+
+    public TestCase(List<Integer> xs, List<Integer> as)  {
       Xs = new ArrayList<>(xs);
       As = new ArrayList<>(as);
-
-      Xs.sort(Long::compareTo);
     }
-  
+
     public void showModifications() {
-      Map<Integer, Long> cache = new HashMap<>();
 
-      for (int j = 0; j < As.size(); j++) {
-          final var a_i = As.get(j);
+      int[] cache = new int[31];
 
-          for( int i = 0; i < Xs.size(); i++){
-            final var x_i = Xs.get(i);
-            System.out.println(String.format("X_i: %s", x_i));
-            
-            if(!cache.containsKey(i)) {
-              cache.put(i, Math.round(Math.pow(2, x_i)));
-            }
-            final long divisor = cache.get(i);
+      final var modifiedList = As.stream().map(a_j -> {
+        if (a_j % 2 != 0) {
+          return a_j;
+        }
 
-            final boolean isDividible = a_i % divisor == 0;
-            if (!isDividible){
-              break;
-            }
+        // a_i may change depending on the modification
+        int new_a = a_j;
 
-            final long power = divisor / 2;
-            final long new_a = a_i+power;
-  
-            As.set(j , new_a);
+        for( int i = 0; i < Xs.size(); i++) {
+          final var x_i = Xs.get(i);
+          if (cache[x_i] == 0) {
+            cache[x_i] = 0b1 << x_i;
           }
-      }
+          final int divisor = cache[x_i];
 
-      // for( int i = 0; i < Xs.size(); i++){
+          final boolean isDivisor = new_a % divisor == 0;
+          if (!isDivisor) {
+            continue;
+          }
 
-      //   final var x_i = Xs.get(i);
-      //   final long divisor = Math.round(Math.pow(2, x_i));
+          if (cache[x_i -1] == 0) {
+            cache[x_i -1] = 0b1 << (x_i -1);
+          }
 
-      //   for (int j = 0; j < As.size(); j++) {
-      //     final var a_i = As.get(j);
-      //     if (a_i % 2 != 0) {
-      //       continue;
-      //     }
-          
-      //     // System.out.println(String.format("a_i: %s\tx_i: %s", a_i, x_i));
+          final int power = cache[x_i -1];
+          new_a += power;
+        }
 
-      //     final boolean isDividible = a_i % divisor == 0;
-      //     //System.out.println(String.format("Divisor: %s\t%s", divisor, isDividible));
-  
-      //     if (isDividible){
-      //       final long power = divisor / 2;
-      //       final long new_a = a_i+power;
-  
-      //       // System.out.println(String.format("power: %s\tnew_a: %s", power, new_a));
-  
-      //       As.set(j , new_a);
-      //     }
-      //   }
-      // }
-  
-      for (long a: As) {
+        return new_a;
+      }).toList();
+
+      for (long a: modifiedList) {
         System.out.print(String.format("%s ", a));
-      } 
+      }
     }
   }
 
   public static void main (String[] args) {
+    //System.out.println(String.format("%s", 2% 1024));
+
     try (Scanner sc = new Scanner(System.in)) {
 
       var testCount = sc.nextInt();
       sc.nextLine();
 
-      
+
       List<TestCase> tests = new ArrayList<>(testCount);
       for (int i = 0; i < testCount; i++) {
-        var inputLengths = sc.nextLine().split(" ");
+        sc.nextLine().split(" ");
 
-        var as = Arrays.asList(sc.nextLine().split(" ")).stream().map(Long::parseLong).toList();
-        var xs = Arrays.asList(sc.nextLine().split(" ")).stream().map(Long::parseLong).toList();
-        
+        var as = Arrays.asList(sc.nextLine().split(" ")).stream().map(Integer::parseInt).toList();
+        var xs = Arrays.asList(sc.nextLine().split(" ")).stream().map(Integer::parseInt).toList();
+
         tests.add(new TestCase( xs, as ));
       }
 
       tests.stream().forEach(t -> {
-         t.showModifications();
-         System.out.println("");
+        t.showModifications();
+        System.out.println();
+        //System.out.println();
       });
-      
-    }
-    
-    
 
+    }
   }
-  
 }
