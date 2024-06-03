@@ -51,8 +51,16 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             jdk
-            astyle
           ];
+
+          shellHook = ''
+            runJava() {
+            	javac "$1.java"
+            	java "$1" < "$2"
+            }
+
+            echo "runJava {ClassName} {testFile}"
+          '';
         };
       };
     };
