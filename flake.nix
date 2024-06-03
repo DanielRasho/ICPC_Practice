@@ -42,7 +42,7 @@
       };
     in
       nixvimPkgs.makeNixvimWithModule nixVimModule;
-  in {
+  in rec {
     devShells = forAllSystems {
       function = {
         pkgs,
@@ -51,13 +51,16 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             jdk
+            (packages.${system}.default)
           ];
 
           shellHook = ''
             runJava() {
-            	javac "$1.java"
-            	java "$1" < "$2"
+            javac "$1.java"
+            java "$1" < "$2"
             }
+
+            alias vim=${packages.${system}.default}/bin/nvim
 
             echo "runJava {ClassName} {testFile}"
           '';
