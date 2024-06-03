@@ -1,8 +1,6 @@
 import java.util.Scanner;
 import java.util.ArrayList;
-import java.util.TreeMap;
 import java.util.List;
-import java.util.Map;
 
 public class GravityFlip {
     public static void main (String[] args){
