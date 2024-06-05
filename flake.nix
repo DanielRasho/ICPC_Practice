@@ -38,7 +38,7 @@
     }: let
       nixvimPkgs = nixVim.legacyPackages.${system};
       nixVimModule = {
-        module = import "${module}";
+        inherit module;
       };
     in
       nixvimPkgs.makeNixvimWithModule nixVimModule;
