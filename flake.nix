@@ -51,6 +51,7 @@
         default = pkgs.mkShell {
           packages = with pkgs; [
             jdk
+            python3
             (packages.${system}.default)
           ];
 
