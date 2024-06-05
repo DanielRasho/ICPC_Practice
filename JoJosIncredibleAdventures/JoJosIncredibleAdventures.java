@@ -11,7 +11,9 @@ public class JoJosIncredibleAdventures {
             for (var i=0; i < testCount; i++) {
                 var testLine = sc.nextLine();
                 // System.out.println("Test Line: " + testLine);
-                if (!testLine.contains("0")) {
+                if (!testLine.contains("1")) {
+                    System.out.println(0);
+                } else if (!testLine.contains("0")) {
                     System.out.println(testLine.length() * testLine.length());
                 } else {
                     var max1sCount = getMaximumConsecutive1s(testLine);
@@ -23,10 +25,10 @@ public class JoJosIncredibleAdventures {
     }
 
     public static int a(int x) {
-        return (int) Math.round(Math.ceil(x / 2));
+        return (int) Math.ceil((double)x / 2.0);
     }
     public static int b(int x) {
-        return (int) Math.round(Math.ceil((x + 1.1) / 2));
+        return (int) Math.ceil((x + 1.0) / 2.0);
     }
 
     public static int f(int x) {
@@ -47,10 +49,6 @@ public class JoJosIncredibleAdventures {
             if( inputLine.charAt(i) == '0' )
                 zeros.add(i);
         }
-        // 1 1 0 1 0 1
-        // zeros = 2,4 = indexOf 2
-        //  lengthUntil zeros[0] + lengthFrom zeros[1] until string.length
-
 
         if (zeros.size() == 1) {
             return inputLine.length() -1;
