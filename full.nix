@@ -82,6 +82,8 @@
   ];
 
   plugins = {
+    lspkind.enable = true;
+
     lsp = {
       enable = true;
       servers = {
@@ -106,6 +108,14 @@
           "<C-p>" = "cmp.mapping.select_prev_item()";
           "<C-y>" = "cmp.mapping.confirm({ select = true })";
         };
+
+        sources = [
+          # LSP and Treessitter on top
+          {name = "nvim_lsp";}
+          {name = "nvim_lsp_signature_help";}
+          {name = "treesitter";}
+          {name = "buffer";}
+        ];
       };
     };
 
