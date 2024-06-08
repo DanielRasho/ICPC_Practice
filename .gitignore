@@ -1,3 +1,6 @@
 *.class
 .vscode
 .conform.*
+.metadata
+jdt.ls-java-project
+~
