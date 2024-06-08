@@ -85,8 +85,16 @@
     lsp = {
       enable = true;
       servers = {
-        java-language-server.enable = true;
+        # java-language-server doesnt work
+        # java-language-server.enable = true;
       };
+    };
+
+    # Setting up the Java LSP
+    nvim-jdtls = {
+      enable = true;
+      data = ".";
+      configuration = "~/.cache/jdtls/config";
     };
 
     luasnip.enable = true;
@@ -140,4 +148,9 @@
 
   # Setting up the completion engine to use luasnip
   plugins.cmp.settings.snippet.expand = ''function(args) require('luasnip').lsp_expand(args.body) end'';
+
+  extraPackages = with pkgs; [
+    jdt-language-server
+    jdk
+  ];
 }
