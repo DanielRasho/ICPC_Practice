@@ -82,8 +82,6 @@
   ];
 
   plugins = {
-    lspkind.enable = true;
-
     lsp = {
       enable = true;
       servers = {
