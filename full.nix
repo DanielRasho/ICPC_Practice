@@ -98,6 +98,7 @@
     };
 
     luasnip.enable = true;
+    autoclose.enable = true;
 
     cmp = {
       enable = true;
