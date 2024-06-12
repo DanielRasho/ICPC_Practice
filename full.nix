@@ -79,6 +79,14 @@
         desc = "Toggle Oil";
       };
     }
+		{
+			mode = "n";
+			key = "<leader>s";
+			action = ":w<CR>";
+			options = {
+				desc = "Save file";
+			};
+		}
   ];
 
   plugins = {
