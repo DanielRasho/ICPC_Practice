@@ -1,4 +1,8 @@
-{pkgs, ...}: {
+{
+  pkgs,
+  lib,
+  ...
+}: {
   # Minimal.nix
   opts = {
     number = true;
@@ -79,14 +83,14 @@
         desc = "Toggle Oil";
       };
     }
-		{
-			mode = "n";
-			key = "<leader>s";
-			action = ":w<CR>";
-			options = {
-				desc = "Save file";
-			};
-		}
+    {
+      mode = "n";
+      key = "<leader>s";
+      action = ":w<CR>";
+      options = {
+        desc = "Save file";
+      };
+    }
   ];
 
   plugins = {
@@ -101,8 +105,13 @@
     # Setting up the Java LSP
     nvim-jdtls = {
       enable = true;
-      data = ".";
-      configuration = "~/.cache/jdtls/config";
+      cmd = [
+        (lib.getExe pkgs.jdt-language-server)
+        "-data"
+        ".data"
+        "-configuration"
+        ".config/.cache"
+      ];
     };
 
     luasnip.enable = true;

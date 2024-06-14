@@ -49,9 +49,9 @@
         system,
       }: {
         default = pkgs.mkShell {
-          packages = with pkgs; [
-            jdk
-            python3
+          packages = [
+            pkgs.jdk
+            pkgs.python3
             (packages.${system}.default)
           ];
 
