@@ -1,3 +1,4 @@
+.config
 *.class
 .vscode
 .conform.*
