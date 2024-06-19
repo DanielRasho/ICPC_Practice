@@ -94,6 +94,7 @@
   ];
 
   plugins = {
+    surround.enable = true;
     lsp = {
       enable = true;
       servers = {
