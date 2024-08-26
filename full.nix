@@ -30,6 +30,7 @@
   plugins = {
     lspkind.enable = true;
     oil.enable = true;
+    which-key.enable = true;
     telescope = {
       enable = true;
       keymaps = {
