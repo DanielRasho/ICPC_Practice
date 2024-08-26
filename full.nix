@@ -39,12 +39,6 @@
             desc = "[F]ind [f]iles in CWD";
           };
         };
-        "<leader>fg" = {
-          action = "live_grep";
-          options = {
-            desc = "[F]ind file according to content that matches [G]rep";
-          };
-        };
         "<leader>fr" = {
           action = "lsp_references";
           options = {
